@@ -1,0 +1,201 @@
+﻿
+@model ScumvaluesMini.Models.ScrumValues.ValuesList
+@Html.BeginForm("Index", "Home")
+<style>
+    #button {
+        background-color: #00CCFF; 
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 22px;
+    }
+
+    #button1 {
+        background-color: #001100;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 22px;
+        color: white;
+        width: 116px;
+    }
+</style>
+
+
+<h4 class="display-4">Scrum Values Details By Radar Chart</h4>
+<div class="Scrumvalues">
+    <h2 style="text-align:left">
+        What Questions Did You Use?
+    </h2>
+    <h3><a href="~/Home/Index">Refresh</a></h3>
+</div>
+
+<h4 style="text-align:left">Courage</h4>
+<table>
+    <tr>
+        <td style="font-size: 20px">
+            @for (int i = 0; i < 5; i++)
+            {
+                @Html.CheckBoxFor(m => Model.values[i].IsCheck)
+                @Model.values[i].name
+                @Html.HiddenFor(m => Model.values[i].id)
+                @Html.HiddenFor(m => Model.values[i].name)
+                <br />
+            }
+        </td>
+    </tr>
+</table>
+<br />
+
+<h4 style="text-align:left">Commitment</h4>
+<table>
+    <tr>
+        <td style="font-size: 20px">
+            @for (int i = 5; i < 10; i++)
+            {
+                @Html.CheckBoxFor(m => Model.values[i].IsCheck)
+                @Model.values[i].name
+                @Html.HiddenFor(m => Model.values[i].id)
+                @Html.HiddenFor(m => Model.values[i].name)
+                <br />
+            }
+        </td>
+    </tr>
+</table>
+<br />
+
+<h4 style="text-align:left">Focus</h4>
+<table>
+    <tr>
+        <td style="font-size: 20px">
+            @for (int i = 10; i < 15; i++)
+            {
+                @Html.CheckBoxFor(m => Model.values[i].IsCheck)
+                @Model.values[i].name
+                @Html.HiddenFor(m => Model.values[i].id)
+                @Html.HiddenFor(m => Model.values[i].name)
+                <br />
+            }
+        </td>
+    </tr>
+</table>
+<br />
+
+<h4 style="text-align:left">Openness</h4>
+<table>
+    <tr>
+        <td style="font-size: 20px">
+            @for (int i = 15; i < 20; i++)
+            {
+                @Html.CheckBoxFor(m => Model.values[i].IsCheck)
+                @Model.values[i].name
+                @Html.HiddenFor(m => Model.values[i].id)
+                @Html.HiddenFor(m => Model.values[i].name)
+                <br />
+            }
+        </td>
+    </tr>
+</table>
+<br />
+
+<h4 style="text-align:left">Respect</h4>
+<table>
+    <tr>
+        <td style="font-size: 20px">
+            @for (int i = 20; i < 25; i++)
+            {
+                @Html.CheckBoxFor(m => Model.values[i].IsCheck)
+                @Model.values[i].name
+                @Html.HiddenFor(m => Model.values[i].id)
+                @Html.HiddenFor(m => Model.values[i].name)
+                <br />
+            }
+        </td>
+    </tr>
+</table>
+<br />
+<div>
+    <input id="button" type="submit" value="Submit" />
+    @*<input id="button1" onclick="a:\beehexa\mini project\scumvaluesmini\views\home\index.cshtml" value="Refresh" />*@
+    @*<div style="font-size: 20px;">
+        <a href="~/Home/Index">Refresh</a>
+    </div>*@
+
+</div>
+
+<div> @ViewBag.selectValues</div>
+
+<div class="text-center">
+    <div class="card" style="margin-left: 200px; margin-right: 550px">
+        <div class="card-header">
+            <div class="chart1">
+                <canvas id="radarchart" style="width: 500px; height: 500px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+    location.reload();
+</script>
+*@
+<script>
+
+    var score = [];
+    //console.log(score);
+    //console.log(@Model.Score);
+
+    score = @{
+                @Html.Raw(Json.Serialize(Model.Score));
+             }
+
+    @if (Model.Score != null)
+    {
+        //foreach (var item in Model.values)
+        //{
+        //    @:score.push(@item.score);
+        //}
+
+        //@:score = @Model.Score;
+        //score = @Html.Raw(Json.Encode(Model.Score));
+    }
+        var options = {
+        responsive: false,
+        maintainAspectRatio: true,
+        scale: {
+            ticks: {
+                beginAtZero: true,
+                max: 5,
+                min: 0,
+                stepSize: 1
+            }
+        }
+    };
+    var RadarChart = document.getElementById('radarchart').getContext('2d');
+    var chart = new Chart(RadarChart, {
+        type: 'radar',
+        data: {
+            labels: ["Courage", "Commitment", "Focus", "Openness", "Respect"],
+            datasets: [{
+                label: "score",
+                data: score,
+                fill: true,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                pointBackgroundColor: 'rgb(255, 99, 132)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 99, 132)'
+
+            }]
+        },
+        options: options
+            
+    });
+</script>

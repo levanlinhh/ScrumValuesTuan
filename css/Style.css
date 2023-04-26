@@ -1,0 +1,12 @@
+﻿
+.hero-section
+
+{
+    background-image: url(../images/close-up-young-business-team-working.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
